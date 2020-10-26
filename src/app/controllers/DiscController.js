@@ -22,7 +22,7 @@ class DiscController {
     }
 
     try {
-        const exist = await Matricula.find({
+        const exist = await Disciplina.find({
             "name": name
         })
         if(exist.length){
@@ -32,8 +32,8 @@ class DiscController {
         return res.status(500).json({ message: `Erro no servidor! ${error}` })
     }
     try {
-        const matricula = await Matricula.create(req.body)
-        return res.status(200).json(matricula)
+        const disciplina = await Disciplina.create(req.body)
+        return res.status(200).json(disciplina)
     } catch (error){
         return res.status(500).json({ message: `Erro no servidor! ${error}` })
     }
@@ -58,10 +58,7 @@ class DiscController {
   async delete(req, res) {
     const disciplinaToDelete = await Disciplina.findOne({ id: req.params.id });
 
-    if (!disciplinaToDelete) {
-      return res
-        .status(422)
-        .json({ message: "Disciplina não existe, ID inválido" });
+    if (!disciplinaToDelete) {return res.status(422).json({ message: "Disciplina não existe, ID inválido" });
     }
 
     await Disciplina.deleteOne({ id: req.params.id });
