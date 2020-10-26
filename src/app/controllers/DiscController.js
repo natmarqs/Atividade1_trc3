@@ -26,7 +26,7 @@ class DiscController {
             "name": name
         })
         if(exist.length){
-            return res.status(200).json({message: "Curso já matriculado"})
+            return res.status(200).json({message: "Já matriculado"})
         }
     } catch(error){
         return res.status(500).json({ message: `Erro no servidor! ${error}` })
@@ -47,18 +47,16 @@ class DiscController {
     });
 
     if (!disciplinaToUpdate) {
-      return res
-        .status(422)
-        .json({ message: "Disciplia não existe, ID inválido" });
+      return res.status(422).json({ message: "Disciplina não existe, ID inválido" });
     }
 
     await Disciplina.update(req.body);
 
-    return res.status(200).json({ message: "Disciplina atualizado com sucesso!" });
+    return res.status(200).json({ message: "Disciplina atualizada com sucesso!" });
   }
 
   async delete(req, res) {
-    const disciplinaToDelete = await User.findOne({ id: req.params.id });
+    const disciplinaToDelete = await Disciplina.findOne({ id: req.params.id });
 
     if (!disciplinaToDelete) {
       return res
